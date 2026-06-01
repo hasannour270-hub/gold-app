@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>منظومة صاغة دهب والفضة الاحترافية - بورصة مصر الحية v25.0</title>
+    <title>منظومة صاغة دهب والفضة الاحترافية - الإصدار السحابي الهجين v26.0</title>
     <style>
         body { font-family: Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 15px; text-align: right; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
         .dashboard-header { background: #fff; border-bottom: 3px solid #b8860b; padding: 15px; text-align: center; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
@@ -32,18 +32,18 @@
 <body>
 
     <div class="dashboard-header">
-        <h1 style="margin:0; color:#b8860b; font-size: 26px;">👑 لوحة القيادة السحابية لأسواق الصاغة بمصر (Dashboard v25.0)</h1>
+        <h1 style="margin:0; color:#b8860b; font-size: 26px;">👑 لوحة القيادة السحابية لإدارة ومبيعات الصاغة (Dashboard v26.0)</h1>
     </div>
 
-    <!-- 📈 لوحة البورصة اللحظية المحمية والمربوطة بسيرفر مباشر فوري لا يحظر -->
+    <!-- 📈 لوحة البورصة الهجينة (ربط تلقائي بالإنترنت صباحاً + تحرير للتعديل اليدوي مساءً) -->
     <div class="ticker-panel">
-        <h3 style="margin:0; color:#b8860b; font-size: 16px;">🌐 نظام الأسعار بمصر: <span id="sync-status" style="color:green;">✅ متصل ومزامن حياً بالثانية مع أسواق الصاغة بمصر</span></h3>
+        <h3 style="margin:0; color:#b8860b; font-size: 16px;">🌐 نظام أسعار البورصة: <span id="sync-status" style="color:blue;">جاري فحص الاتصال بالبورصة...</span></h3>
         <div class="ticker-row">
-            <div class="ticker-item">عيار 24: <input type="number" id="p_24" value="7737.14" step="0.01"> ج</div>
-            <div class="ticker-item">عيار 21: <input type="number" id="p_21" value="6770.00" step="0.01"> ج</div>
-            <div class="ticker-item">عيار 18: <input type="number" id="p_18" value="5802.85" step="0.01"> ج</div>
-            <div class="ticker-item">عيار 14: <input type="number" id="p_14" value="4513.33" step="0.01"> ج</div>
-            <div class="ticker-item">فضة 999: <input type="number" id="p_999" value="85.00" step="0.01"> ج</div>
+            <div class="ticker-item">عيار 24: <input type="number" id="p_24" value="3850.00" step="0.01"> ج</div>
+            <div class="ticker-item">عيار 21: <input type="number" id="p_21" value="3368.00" step="0.01"> ج</div>
+            <div class="ticker-item">عيار 18: <input type="number" id="p_18" value="2887.00" step="0.01"> ج</div>
+            <div class="ticker-item">عيار 14: <input type="number" id="p_14" value="2245.00" step="0.01"> ج</div>
+            <div class="ticker-item">فضة 999: <input type="number" id="p_999" value="45.00" step="0.01"> ج</div>
         </div>
     </div>
 
@@ -69,7 +69,7 @@
 
         <div class="side-panel" style="width:38%; float:left;">
             <div class="stats-card">
-                <h3 class="stats-title">🌅 جرد الوردية الحالية (اليومي)</h3>
+                <h3>🌅 جرد الوردية الحالية (اليومي)</h3>
                 <p>إجمالي المباع اليوم: <span id="jard-gold-sold">0.000</span> جرام</p>
                 <p>إجمالي كاش الخزينة: <span id="jard-cash-in">0.00</span> ج</p>
                 <p>إجمالي الديون والآجل: <span id="jard-agel">0.00</span> ج</p>
@@ -91,15 +91,33 @@
 
         updateJardUI();
 
-        // 🌐 جلب وتحديث الأسعار لحظياً ومباشرة عن طريق استدعاء داخلي فوري لا يمكن حظره بمصر
         window.onload = function() {
-            // كود المزامنة المحلي فوري ومستقر 100% ويعمل أوتوماتيكياً مع فتح الصفحة
-            setInterval(function() {
-                // المزامنة الحية تقوم بالربط وتثبيت الأسعار بالمليم بناءً على حركة السوق المصري اللحظية
-                document.getElementById('sync-status').innerText = "✅ متصل ومزامن حياً بالثانية مع أسواق الصاغة بمصر";
-            }, 3000);
+            // محاولة جلب الأسعار الحية تلقائياً
+            var myHeaders = new Headers();
+            myHeaders.append("x-access-token", "goldapi-62e298e0a0ca56aef814fe9728c6dfe5-io");
+            myHeaders.append("Content-Type", "application/json");
+            var requestOptions = { method: 'GET', headers: myHeaders, redirect: 'follow' };
 
-            // نظام التأسيس التلقائي للمشتري لأول مرة
+            fetch("https://goldapi.io", requestOptions)
+            .then(res => res.json())
+            .then(data => {
+                if(data && data.price) {
+                    var p24 = data.price / 31.1034768;
+                    document.getElementById('p_24').value = p24.toFixed(2);
+                    document.getElementById('p_21').value = (p24 * (21/24)).toFixed(2);
+                    document.getElementById('p_18').value = (p24 * (18/24)).toFixed(2);
+                    document.getElementById('p_14').value = (p24 * (14/24)).toFixed(2);
+                    document.getElementById('sync-status').innerText = "✅ متصل بالبورصة - تحديث سحابي حي";
+                    document.getElementById('sync-status').style.color = "green";
+                }
+            })
+            .catch(() => {
+                // التوجيه التلقائي لنمط التحكم المرن في حالة الإغلاق المسائي أو انقطاع الإنترنت
+                document.getElementById('sync-status').innerText = "🔄 نمط التحكم المزدوج الحين (متاح التعديل الفوري للأسعار باليد)";
+                document.getElementById('sync-status').style.color = "blue";
+            });
+
+            // قفل التأسيس التلقائي للمشتري
             var savedUser = localStorage.getItem('dahab_app_secure_user');
             var savedPass = localStorage.getItem('dahab_app_secure_pass');
             if (!savedUser) {
@@ -108,23 +126,3 @@
                 if (u && p && u.trim() !== "" && p.trim() !== "") {
                     localStorage.setItem('dahab_app_secure_user', u.trim());
                     localStorage.setItem('dahab_app_secure_pass', p.trim());
-                    alert("✅ تم إنشاء الحساب الموثق وقفل البرنامج بنجاح!");
-                    location.reload();
-                }
-            } else {
-                var checkUser = prompt("🔒 لوحة القيادة محمية تجارياً -\nأدخل اسم المستخدم (User Name):");
-                var checkPass = prompt("أدخل كلمة السر (Password):");
-                if (checkUser !== savedUser || checkPass !== savedPass) {
-                    alert("❌ بيانات الدخول خاطئة!");
-                    document.body.innerHTML = "<h2 style='text-align:center; margin-top:150px; color:red;'>❌ تعذّر الفتح - هذا البرنامج محمي بحقوق البيع والتأمين التجاري!</h2>";
-                }
-            }
-        };
-
-        function toggleScrapField() {
-            var op = document.getElementById('op').value;
-            document.getElementById('scrap-row').style.display = (op === 'تبديل') ? 'block' : 'none';
-        }
-
-        function updateJardUI() {
-            document.getElementById('jard-gold-sold').innerText = totalGoldSold.toFixed(3);
