@@ -2,11 +2,11 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>منظومة صاغة دهب والفضة الاحترافية - الإصدار السحابي المباشر v22.0</title>
+    <title>منظومة صاغة دهب والفضة الاحترافية - الإصدار السحابي الهجين v23.0</title>
     <style>
         body { font-family: Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 15px; text-align: right; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
         .dashboard-header { background: #fff; border-bottom: 3px solid #b8860b; padding: 15px; text-align: center; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .ticker-panel { background: #fff; border: 1px solid #ccc; padding: 12px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); text-align: center; }
+        .ticker-panel { background: #fff; border: 2px solid #b8860b; padding: 12px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); text-align: center; }
         .ticker-row { display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; margin-top: 10px; }
         .ticker-item { font-weight: bold; color: #b8860b; font-size: 14px; margin: 5px; background: #fffdf5; padding: 6px 12px; border-radius: 4px; border: 1px solid #fbf4d7; }
         .ticker-item input { width: 90px; padding: 4px; font-size: 14px; text-align: center; font-weight: bold; color: #333; border: 1px solid #ccc; border-radius: 4px; }
@@ -27,8 +27,11 @@
         .chart-fill-agel { background: red; height: 100%; }
     </style>
     <script>
-        // 🛡️ جدار الحماية الفولاذي: حظر كليك يمين والاختصارات لمنع سرقة الكود نهائياً عند البيع
-        document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+        // 🛡️ جدار الحماية الفولاذي الشامل لحظر كليك يمين والاختصارات لحماية تصميمك عند البيع
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            alert("⚠️ عفواً.. هذا البرنامج محمي بالكامل بموجب حقوق الملكية والتأمين التجاري لـ محلات دهب. مستحيل الوصول للسورس كود!");
+        });
         document.onkeydown = function(e) {
             if (e.keyCode == 123 || (e.ctrlKey && (e.keyCode == 85 || e.keyCode == 83)) || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67))) { return false; }
         };
@@ -37,12 +40,12 @@
 <body>
 
     <div class="dashboard-header">
-        <h1 style="margin:0; color:#b8860b; font-size: 26px;">👑 لوحة تحكم الصاغة السحابية المفتوحة (Dashboard v22.0)</h1>
+        <h1 style="margin:0; color:#b8860b; font-size: 26px;">👑 لوحة القيادة السحابية المفتوحة (Dashboard v23.0)</h1>
     </div>
 
-    <!-- 📈 لوحة البورصة اللحظية الحية المربوطة بطلب الـ CURL والسحب المباشر بالجنيه المصري -->
+    <!-- 📈 لوحة البورصة الهجينة (تحديث سحابي أوتوماتيكي + تعديل يدوي مفتوح للماوس) -->
     <div class="ticker-panel">
-        <h3 style="margin:0; color:#b8860b; font-size: 16px;">🌐 حالة اتصال الحساب السحابي الموثق: <span id="sync-status" style="color:blue;">جاري سحب البورصة الحية من GoldAPI...</span></h3>
+        <h3 style="margin:0; color:#b8860b; font-size: 16px;">🌐 نظام تحديث الأسعار: <span id="sync-status" style="color:blue;">جاري فحص اتصال السيرفر...</span></h3>
         <div class="ticker-row">
             <div class="ticker-item">عيار 24: <input type="number" id="p_24" value="7737.14" step="0.01"> ج</div>
             <div class="ticker-item">عيار 21: <input type="number" id="p_21" value="6770.00" step="0.01"> ج</div>
@@ -53,7 +56,6 @@
     </div>
 
     <div class="grid-container">
-        <!-- 💻 الواجهة الرئيسية للفواتير والمبيعات -->
         <div class="main-panel">
             <div class="row"><label>نوع العملية:</label><select id="op" onchange="toggleScrapField()"><option value="بيع">بيع مشغولات جديدة للزبون</option><option value="شراء">شراء ذهب أو فضة كسر</option><option value="تبديل">تبديل (مرتجع زبون مقابل جديد)</option><option value="سبائك">تسعير وبيع سبيكة / جنيه</option></select></div>
             <div class="row"><label>اختر العيار والنوع:</label><select id="carat"><option value="21">ذهب عيار 21</option><option value="18">ذهب عيار 18</option><option value="24">ذهب عيار 24</option><option value="14">ذهب عيار 14</option><option value="999">فضة نقية 999 سبائك</option></select></div>
@@ -77,7 +79,6 @@
             <button id="btn-print" onclick="printInvoice()">🖨️ الخطوة 2: تأكيد وصرف أمر طباعة البون الورقي الحين</button>
         </div>
 
-        <!-- 📊 لوحة التقارير والرسوم الإحصائية المتقدمة (Dashboard Layout) -->
         <div class="side-panel">
             <div class="stats-card">
                 <h3 class="stats-title">🌅 جرد الوردية الحالية (اليومي)</h3>
@@ -115,3 +116,4 @@
         var totalScrapBuy = parseFloat(localStorage.getItem('j_s_buy')) || 0;
         var monthGold = parseFloat(localStorage.getItem('m_g_sold')) || 0;
         var monthCash = parseFloat(localStorage.getItem('m_c_in')) || 0;
+        var monthAgel = parseFloat(localStorage.getItem('m_a_gel')) || 0;
