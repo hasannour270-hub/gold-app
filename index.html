@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>منظومة صاغة دهب والفضة والسبائك الشاملة - الإصدار النقدي المستقر v48.0</title>
+    <title>منظومة صاغة دهب والفضة والسبائك الشاملة - الإصدار النقدي المستقر v60.0</title>
     <style>
         body { font-family: Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 15px; text-align: right; }
         .dashboard-header { background: #fff; border-bottom: 3px solid #b8860b; padding: 15px; text-align: center; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
@@ -85,7 +85,7 @@
                 <div class="row"><label style="color: blue;">وزن المرتجع المستلم (ج):</label><input type="number" id="scrap_weight" value="0" step="0.001"></div>
             </div>
             
-            <!-- 🚀 الأزرار الحرة المعزولة والمصلحة برمجياً 100% -->
+            <!-- 🚀 الأزرار الحرة المعزولة والمصلحة برمجياً بالكامل -->
             <button id="btn-calc" onclick="runCalc()">🧾 الخطوة 1: عرض وحساب الفاتورة للمعاينة بالأسفل</button>
             <div id="preview">جاهز لتسجيل وتجهيز الفاتورة... (اضغط الخطوة 1 لرؤية الحسبة هنا)</div>
             <button id="btn-print" onclick="runPrint()">🖨️ الخطوة 2: تأكيد وصرف أمر طباعة البون الورقي الحين</button>
@@ -114,7 +114,7 @@
         var totalCashIn = parseFloat(localStorage.getItem('j_c_in')) || 0;
         var monthGold = parseFloat(localStorage.getItem('m_g_sold')) || 0;
         var monthCash = parseFloat(localStorage.getItem('m_c_in')) || 0;
-        window.lastCalc = null;
+        var lastCalcData = null;
 
         updateJardUI();
 
