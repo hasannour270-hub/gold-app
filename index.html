@@ -2,157 +2,174 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>منظومة صاغة دهب والفضة والسبائك الشاملة - الإصدار المستقر v36.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منظومة الصاغة المتكاملة والمحمية</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 15px; text-align: right; }
-        .dashboard-header { background: #fff; border-bottom: 3px solid #b8860b; padding: 15px; text-align: center; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .ticker-panel { background: #fff; border: 2px solid #b8860b; padding: 12px; margin-bottom: 15px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); text-align: center; }
-        .ticker-row { display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; margin-top: 10px; }
-        .ticker-item { font-weight: bold; color: #b8860b; font-size: 14px; margin: 5px; background: #fffdf5; padding: 6px 12px; border-radius: 4px; border: 1px solid #fbf4d7; }
-        .ticker-item input { width: 90px; padding: 4px; font-size: 14px; text-align: center; font-weight: bold; color: #333; border: 1px solid #ccc; border-radius: 4px; }
-        .panel { background: #fff; border: 1px solid #ccc; padding: 20px; margin-bottom: 15px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .row { margin-bottom: 12px; display: flex; align-items: center; }
-        label { font-weight: bold; width: 150px; display: inline-block; }
-        input, select { padding: 6px; width: 220px; font-size: 15px; text-align: center; border: 1px solid #ccc; border-radius: 4px; }
-        button { padding: 12px; width: 100%; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; border: none; border-radius: 4px; color: #fff; }
-        #btn-calc { background: #b8860b; }
-        #btn-print { background: green; }
-        #preview { background: #fff; border: 1px solid #aaa; height: 180px; padding: 12px; font-family: Courier, monospace; white-space: pre-wrap; overflow-y: auto; margin-top: 15px; border-radius: 4px; color: #333; font-weight: bold; font-size: 14px; line-height: 1.4; }
-        .jard-panel { background: #222; color: #00ff00; padding: 15px; margin-top: 15px; border-radius: 6px; font-family: monospace; font-size: 14px; }
-        .jard-grid { display: flex; justify-content: space-between; }
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; text-align: center; padding: 20px; user-select: none; -webkit-user-select: none; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: none; }
+        h1, h2, h3 { color: #333; border-bottom: 2px solid #d4af37; padding-bottom: 8px; }
+        input, select { width: 90%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 5px; text-align: center; font-size: 16px; box-sizing: border-box; }
+        .grid-prices { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 20px 0; }
+        .price-card { font-size: 18px; font-weight: bold; padding: 15px; border-radius: 8px; background: #fff; border: 1px solid #e0e0e0; text-align: right; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .global-card { border-right: 5px solid #28a745; background: #f0fdf4; }
+        .gold-card { border-right: 5px solid #d4af37; }
+        .silver-card { border-right: 5px solid #94a3b8; background: #f8fafc; }
+        .section-box { background: #fdfbf7; border: 1px solid #e2d4b7; padding: 20px; border-radius: 10px; margin-top: 25px; text-align: right; }
+        .total-box { font-size: 24px; color: #28a745; font-weight: bold; margin-top: 15px; background: #eef9f0; padding: 12px; border-radius: 5px; text-align: center; }
+        button { background-color: #d4af37; color: white; border: none; padding: 12px 25px; font-size: 16px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
+        button:hover { background-color: #aa8833; }
+        .btn-print { background-color: #007bff; } .btn-print:hover { background-color: #0056b3; }
+        .btn-danger { background-color: #dc3545; } .btn-danger:hover { background-color: #bd2130; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #fff; }
+        table, th, td { border: 1px solid #ddd; text-align: center; padding: 10px; }
+        th { background-color: #f5f5f5; }
+        @media print {
+            body * { visibility: hidden; }
+            #print-area, #print-area * { visibility: visible; }
+            #print-area { position: absolute; left: 0; top: 0; width: 100%; direction: rtl; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="dashboard-header">
-        <h1 style="margin:0; color:#b8860b; font-size: 26px;">👑 لوحة القيادة السحابية الشاملة للمحل (Dashboard)</h1>
+<!-- واجهة المنظومة الرئيسية (مخفية تماماً ولا تفتح إلا بالبيانات الصحيحة) -->
+<div id="main-container" class="container">
+    <h1>لوحة تحكم إدارة فرع الصاغة</h1>
+    
+    <!-- شاشة الأسعار اللحظية والصافية -->
+    <div class="grid-prices">
+        <div class="price-card global-card">الأونصة العالمية: <span style="float:left;" id="price-ounce">$4,470.00</span></div>
+        <div class="price-card gold-card">سبيكة 24 خام: <span style="float:left;" id="price-24">7,634.29 ج.م</span></div>
+        <div class="price-card gold-card">مشغولات 21 صافي: <span style="float:left;" id="price-21">6,680.00 ج.م</span></div>
+        <div class="price-card gold-card">مشغولات 18 صافي: <span style="float:left;" id="price-18">5,725.71 ج.م</span></div>
+        <div class="price-card silver-card">أونصة الفضة: <span style="float:left;">$32.50</span></div>
+        <div class="price-card silver-card">جرام الفضة عيار 925: <span style="float:left;">95.00 ج.م</span></div>
     </div>
+    <button type="button" onclick="fetchAllPrices()">تحديث أسعار البورصة وجولد إيرا</button>
+    <p id="status-time" style="font-size: 11px; color:#999; margin-top:5px;"></p>
 
-    <!-- 📈 لوحة البورصة المرنة القابلة للتعديل والمسح باليد في ثانية واحدة -->
-    <div class="ticker-panel">
-        <h3 style="margin:0; color:#b8860b; font-size: 16px;">📈 أسعار البورصة الحالية (اكتب أسعار اليوم الحالية بيدك بالماوس الحين):</h3>
-        <div class="ticker-row">
-            <div class="ticker-item">عيار 24: <input type="number" id="p_24" value="4150.00"> ج</div>
-            <div class="ticker-item">عيار 21: <input type="number" id="p_21" value="3630.00"> ج</div>
-            <div class="ticker-item">عيار 18: <input type="number" id="p_18" value="3111.00"> ج</div>
-            <div class="ticker-item">فضة 999: <input type="number" id="p_999" value="45.00"> ج</div>
-        </div>
-    </div>
-
-    <div class="panel">
-        <div class="row">
-            <label>نوع العملية:</label>
-            <select id="op" onchange="runToggle()">
-                <option value="1">بيع مشغولات جديدة للزبون</option>
-                <option value="2">شراء ذهب أو فضة كسر</option>
-                <option value="3">تبديل (مرتجع مقابل جديد)</option>
-            </select>
-        </div>
-        <div class="row">
-            <label>اختر العيار والنوع:</label>
-            <select id="carat">
-                <option value="21">ذهب عيار 21</option>
-                <option value="18">ذهب عيار 18</option>
-                <option value="24">ذهب عيار 24</option>
-                <option value="999">فضة نقية 999 سبائك</option>
-            </select>
-        </div>
-        <div class="row"><label>اسم الزبون:</label><input type="text" id="cust_name" value="عميل نقدي"></div>
-        <div class="row">
-            <label>طريقة الدفع:</label>
-            <select id="pay_method">
-                <option value="كاش">كاش (نقدي)</option>
-                <option value="آجل">آجل / مديونية (شكك)</option>
-            </select>
-        </div>
-        <div class="row"><label>الوزن الجديد (ج):</label><input type="number" id="weight" value="0" step="0.001"></div>
-        <div class="row"><label>المصنعية للجرام:</label><input type="number" id="making" value="150"></div>
-        <div class="row"><label>الدمغة والضريبة / ج:</label><input type="number" id="tax" value="18"></div>
-        <div class="row"><label>الخصم الممنوح للزبون:</label><input type="number" id="discount" value="0"></div>
+    <!-- حاسبة المبيعات وإصدار الفواتير -->
+    <div id="print-area" class="section-box">
+        <h3>حاسبة المبيعات وإصدار الفواتير</h3>
+        <label>وزن القطعة (بالجرام):</label>
+        <input type="number" id="gold-weight" step="0.01" value="0" oninput="calculateInvoice()">
         
-        <div id="scrap-row" style="display:none; border-top: 2px dashed #ccc; padding-top: 10px; margin-top: 10px;">
-            <div class="row">
-                <label style="color: blue;">عيار المرتجع / الكسر:</label>
-                <select id="scrap_carat">
-                    <option value="21">عيار 21 كسر</option>
-                    <option value="18">عيار 18 كسر</option>
-                </select>
-            </div>
-            <div class="row"><label style="color: blue;">وزن المرتجع المستلم (ج):</label><input type="number" id="scrap_weight" value="0" step="0.001"></div>
-        </div>
+        <label>نوع الصنف والعيار:</label>
+        <select id="gold-type" onchange="calculateInvoice()">
+            <option value="21">عيار 21 (مشغولات)</option>
+            <option value="18">عيار 18 (مشغولات)</option>
+            <option value="24">عيار 24 (سبائك)</option>
+            <option value="925">فضة عيار 925</option>
+        </select>
+
+        <label>المصنعية والربح (للجرام الواحد):</label>
+        <input type="number" id="making-charges" value="150" oninput="calculateInvoice()">
+
+        <label>الدمغة والضريبة (للجرام الواحد):</label>
+        <input type="number" id="tax-charges" value="20" oninput="calculateInvoice()">
+
+        <div class="total-box">إجمالي الفاتورة: <span id="invoice-total">0.00</span> ج.م</div>
+        <button type="button" class="btn-print" onclick="saveSaleAndPrint()">طباعة الفاتورة وحفظ البيعة</button>
+    </div>
+
+    <!-- إدارة مخزن المحل الجرد -->
+    <div class="section-box">
+        <h3>جرد وإدارة مخزن المحل</h3>
+        <table id="inventory-table">
+            <thead>
+                <tr>
+                    <th>الصنف والعيار</th>
+                    <th>الوزن المتوفر بالمحل (جرام)</th>
+                    <th>حالة المخزن</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>عيار 24 (سبائك)</td><td id="inv-24">1,500.00</td><td><span style="color:green;">مستقر</span></td></tr>
+                <tr><td>عيار 21 (مشغولات)</td><td id="inv-21">3,250.00</td><td><span style="color:green;">مستقر</span></td></tr>
+                <tr><td>عيار 18 (مشغولات)</td><td id="inv-18">2,100.00</td><td><span style="color:green;">مستقر</span></td></tr>
+                <tr><td>فضة 925</td><td id="inv-925">5,000.00</td><td><span style="color:green;">مستقر</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- التقرير المالي والأرباح والخسائر -->
+    <div class="section-box">
+        <h3>التقرير المالي والأرباح والخسائر</h3>
+        <p style="color: #666;">متابعة حركة الخزينة وصافي المكسب المكتسب:</p>
         
-        <!-- 🚀 الأزرار الحرة المستقلة الشغالة 100% فورا -->
-        <button id="btn-calc" onclick="runCalc()">🧾 الخطوة 1: عرض وحساب الفاتورة للمعاينة بالأسفل</button>
-        <div id="preview">جاهز لتسجيل وتجهيز الفاتورة... (اضغط الخطوة 1 لرؤية الحسبة هنا)</div>
-        <button id="btn-print" onclick="runPrint()">🖨️ الخطوة 2: تأكيد وصرف أمر طباعة البون الورقي الحين</button>
+        <table id="reports-table">
+            <tr>
+                <th>إجمالي المبيعات اليومية</th>
+                <td><span id="rep-daily-sales" style="font-weight: bold; color: #007bff;">0.00</span> ج.م</td>
+            </tr>
+            <tr>
+                <th>صافي أرباح المصنعية والعمولات</th>
+                <td><span id="rep-profits" style="font-weight: bold; color: #28a745;">0.00</span> ج.م</td>
+            </tr>
+            <tr>
+                <th>تقرير الحساب الشهري التراكمي</th>
+                <td><span id="rep-monthly" style="font-weight: bold;">0.00</span> ج.م</td>
+            </tr>
+            <tr>
+                <th>حالة الخسائر (تلف/هوالك)</th>
+                <td><span id="rep-losses" style="font-weight: bold; color: #dc3545;">0.00</span> ج.م</td>
+            </tr>
+        </table>
+        
+        <button type="button" class="btn-danger" onclick="endDayReport()">إنهاء وإغلاق اليومية وتدوير الحساب</button>
     </div>
+</div>
 
-    <!-- 📊 جدول الجرد المالي الفخم الملون بالأسفل (اليومي والشهري التراكمي) -->
-    <div class="jard-panel">
-        <div class="jard-grid">
-            <div style="width: 48%; border-left: 1px dashed #555; padding-left: 10px;">
-                <h3 style="color: #00ff00;">🌅 تقرير الجرد اليومي (الوردية الحالية):</h3>
-                <p>إجمالي المباع اليوم: <span id="jard-gold-sold">0.000</span> جرام</p>
-                <p>إجمالي كاش الخزينة اليوم: <span id="jard-cash-in">0.00</span> ج</p>
-                <p>إجمالي الآجل المتبقي اليوم: <span id="jard-agel">0.00</span> ج</p>
-                <button onclick="resetDay('day')" style="background:red; color:#fff; padding:3px; font-size:11px; width:150px; border:none; border-radius:4px;">إغلاق وتصـفير اليوم</button>
-            </div>
-            <div style="width: 48%; padding-right: 10px;">
-                <h3 style="color: #00e5ff;">📅 الحساب والتقرير الشهري التراكمي:</h3>
-                <p>إجمالي مبيعات الشهر بالجرام: <span id="month-gold">0.000</span> جرام</p>
-                <p>إجمالي النقدية الكلية للشهر: <span id="month-cash">0.00</span> ج</p>
-                <p>إجمالي مديونيات الزبائن المعلقة: <span id="month-agel">0.00</span> ج</p>
-                <button onclick="resetDay('month')" style="background:#b8860b; color:#fff; padding:3px; font-size:11px; width:150px; border:none; border-radius:4px;">إغلاق وتصـفير الشهر</button>
-            </div>
-        </div>
-    </div>
+<script>
+    let currentOuncePrice = 4470.00; let currentPrice24 = 7634.29; let currentPrice21 = 6680.00; let currentPrice18 = 5725.71; let currentPrice925 = 95.00;
+    let dailySalesTotal = 0; let dailyProfitsTotal = 0; let monthlySalesTotal = 0; let totalLosses = 0;
+    let stock24 = 1500.00; let stock21 = 3250.00; let stock18 = 2100.00; let stock925 = 5000.00;
 
-    <script>
-        var invoiceCounter = 1;
-        var totalGoldSold = parseFloat(localStorage.getItem('j_g_sold')) || 0;
-        var totalCashIn = parseFloat(localStorage.getItem('j_c_in')) || 0;
-        var totalAgel = parseFloat(localStorage.getItem('j_a_gel')) || 0;
-        var monthGold = parseFloat(localStorage.getItem('m_g_sold')) || 0;
-        var monthCash = parseFloat(localStorage.getItem('m_c_in')) || 0;
-        var monthAgel = parseFloat(localStorage.getItem('m_a_gel')) || 0;
-        window.lastCalc = null;
+    // كود حماية حظر أزرار الفحص والنسخ الخاص بك
+    document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123 || (e.ctrlKey && (e.keyCode == 85 || e.keyCode == 83)) || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67))) { return false; }
+    };
 
-        updateJardUI();
+    const SECRET_USER = "admin"; const SECRET_PASS = "123456";
 
-        function runToggle() {
-            var op = document.getElementById('op').value;
-            document.getElementById('scrap-row').style.display = (op === '3') ? 'block' : 'none';
+    // تفعيل نافذة الحماية الذكية فور فتح الملف محلياً بدون أي أزرار معطلة
+    window.onload = function() {
+        let u = prompt("الرجاء إدخال اسم المستخدم للنظام:");
+        let p = prompt("الرجاء إدخال كلمة المرور السرية:");
+
+        if (u === SECRET_USER && p === SECRET_PASS) {
+            alert("تم التحقق من الهوية بنجاح! جاري فتح الخزينة والمخازن..");
+            document.getElementById('main-container').style.display = 'block';
+            initSystemData();
+        } else {
+            alert("بيانات المرور خاطئة! لن يفتح البرنامج.");
+            document.body.innerHTML = "<h1 style='color:red; margin-top:100px;'>عذراً، غير مسموح لك بدخول منظومة الحسابات والمخازن.</h1>";
         }
+    };
 
-        function updateJardUI() {
-            document.getElementById('jard-gold-sold').innerText = totalGoldSold.toFixed(3);
-            document.getElementById('jard-cash-in').innerText = totalCashIn.toFixed(2);
-            document.getElementById('jard-agel').innerText = totalAgel.toFixed(2);
-            document.getElementById('month-gold').innerText = monthGold.toFixed(3);
-            document.getElementById('month-cash').innerText = monthCash.toFixed(2);
-            document.getElementById('month-agel').innerText = monthAgel.toFixed(2);
-        }
+    function initSystemData() {
+        document.getElementById('price-ounce').innerText = `$${currentOuncePrice.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+        document.getElementById('price-24').innerText = `${currentPrice24.toFixed(2)} ج.م`;
+        document.getElementById('price-21').innerText = `${currentPrice21.toFixed(2)} ج.م`;
+        document.getElementById('price-18').innerText = `${currentPrice18.toFixed(2)} ج.م`;
+        
+        document.getElementById('inv-24').innerText = stock24.toFixed(2);
+        document.getElementById('inv-21').innerText = stock21.toFixed(2);
+        document.getElementById('inv-18').innerText = stock18.toFixed(2);
+        document.getElementById('inv-925').innerText = stock925.toFixed(2);
+        calculateInvoice();
+    }
 
-        function runCalc() {
-            var prices = {
-                '24': parseFloat(document.getElementById('p_24').value) || 0,
-                '21': parseFloat(document.getElementById('p_21').value) || 0,
-                '18': parseFloat(document.getElementById('p_18').value) || 0,
-                '999': parseFloat(document.getElementById('p_999').value) || 0
-            };
+    async function fetchAllPrices() {
+        const targetUrl = "https://goldapi.io";
+        const proxyUrl = "https://allorigins.win" + encodeURIComponent(targetUrl);
+        try {
+            const response = await fetch(proxyUrl, { headers: { "x-access-token": "goldapi-62e298e0a0ca56aef814fe9728c6dfe5-io" } });
+            const proxyData = await response.json();
+            const data = JSON.parse(proxyData.contents);
+            if(data && data.price) { currentOuncePrice = data.price; initSystemData(); }
+        } catch (error) { console.log("حماية الأوفلاين نشطة"); }
+    }
 
-            var op = document.getElementById('op').value; 
-            var carat = document.getElementById('carat').value;
-            var name = document.getElementById('cust_name').value; 
-            var pay = document.getElementById('pay_method').value; 
-            var w = parseFloat(document.getElementById('weight').value) || 0;
-            var mk = parseFloat(document.getElementById('making').value) || 0; 
-            var tx = parseFloat(document.getElementById('tax').value) || 0; 
-            var dsc = parseFloat(document.getElementById('discount').value) || 0;
-            
-            if (w <= 0) { alert('أدخل الوزن أولاً!'); return; }
-            var price = prices[carat]; 
-            var dt = new Date().toLocaleString('ar-EG');
-            
-            var header = "      👑 محلات دهب للمشغولات والسبائك 👑\n-----------------------------------------\nالفاتورة: #"+invoiceCounter+"\nالزبون: "+name+" | الدفع: "+pay+"\nالتاريخ: "+dt+"\n-----------------------------------------\n";
-            
+    function calculateInvoice() {
